@@ -1,7 +1,10 @@
 **Caliburn.Micro.Recipes.Filters**
 
-Implementation from Marco Amendola, see his article: http://marcoamendola.wordpress.com/2010/08/10/a-caliburn-micro-recipe-filters/
-Hid original fork on Codeplex: http://caliburnmicro.codeplex.com/SourceControl/network/forks/marcoamendola/caliburnmicromarcoamendolafork
+Implementation from Marco Amendola, see his article: 
+http://marcoamendola.wordpress.com/2010/08/10/a-caliburn-micro-recipe-filters/
+
+His original fork on Codeplex: 
+http://caliburnmicro.codeplex.com/SourceControl/network/forks/marcoamendola/caliburnmicromarcoamendolafork
 
 As Caliburn.Micro has moved to github, I decided to put this up as well.
 
