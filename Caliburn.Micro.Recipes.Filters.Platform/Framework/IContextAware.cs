@@ -4,6 +4,10 @@
 
     public interface IContextAware : IFilter, IDisposable
     {
+        #region Public Methods and Operators
+
         void MakeAwareOf(ActionExecutionContext context);
+
+        #endregion
     }
 }

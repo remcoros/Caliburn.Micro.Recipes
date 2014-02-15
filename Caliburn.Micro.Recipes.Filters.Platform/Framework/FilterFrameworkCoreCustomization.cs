@@ -4,39 +4,32 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Caliburn.Micro;
-
     public static class FilterFrameworkCoreCustomization
-	{
-		public static void Hook()
-		{
-			var oldPrepareContext = ActionMessage.PrepareContext;
-			ActionMessage.PrepareContext = context =>
-			{
-				oldPrepareContext(context);
-				FilterFrameworkCoreCustomization.PrepareContext(context);
-			};
+    {
+        #region Public Methods and Operators
 
-			ActionMessage.InvokeAction = context=> {
-				var values = MessageBinder.DetermineParameters(context, context.Method.GetParameters());
-				FilterFrameworkCoreCustomization.InvokeAction(context, values);
-			};
-		}
+        public static void Hook()
+        {
+            var oldPrepareContext = ActionMessage.PrepareContext;
+            ActionMessage.PrepareContext = context =>
+                {
+                    oldPrepareContext(context);
+                    FilterFrameworkCoreCustomization.PrepareContext(context);
+                };
 
-		internal static void PrepareContext(ActionExecutionContext context)
-		{
-			var contextAwareFilters = FilterManager.GetFiltersFor(context).OfType<IContextAware>()
-				.ToArray();
-			contextAwareFilters.Apply(x => x.MakeAwareOf(context));
+            ActionMessage.InvokeAction = context =>
+                {
+                    var values = MessageBinder.DetermineParameters(context, context.Method.GetParameters());
+                    FilterFrameworkCoreCustomization.InvokeAction(context, values);
+                };
+        }
 
-			context.Message.Detaching += (o, e) =>
-			{
-				contextAwareFilters.Apply(x => x.Dispose());
-			};
-		}
+        #endregion
 
-		internal static void InvokeAction(ActionExecutionContext context, object[] values)
-		{
+        #region Methods
+
+        internal static void InvokeAction(ActionExecutionContext context, object[] values)
+        {
             var returnValue = context.Method.Invoke(context.Target, values);
 
             var task = returnValue as System.Threading.Tasks.Task;
@@ -64,24 +57,39 @@
                 var pipeline = result.WrapWith(wrappers);
                 //if pipeline has error, action execution should throw! 
                 pipeline.Completed += (o, e) =>
-                {
-                    Execute.OnUIThread(() =>
                     {
-                        if (e.Error != null) throw new Exception(
-                            string.Format("An error occurred while executing {0}", context.Message),
-                            e.Error
-                        );
-                    });
-                };
+                        Execute.OnUIThread(
+                            () =>
+                            {
+                                if (e.Error != null)
+                                {
+                                    throw new Exception(
+                                        string.Format("An error occurred while executing {0}", context.Message),
+                                        e.Error
+                                        );
+                                }
+                            });
+                    };
                 pipeline.Execute(
                     new CoroutineExecutionContext
-                    {
-                        Source = context.Source,
-                        View = context.View,
-                        Target = context.Target
-                    });
+                        {
+                            Source = context.Source,
+                            View = context.View,
+                            Target = context.Target
+                        });
             }
-		}
+        }
+
+        internal static void PrepareContext(ActionExecutionContext context)
+        {
+            var contextAwareFilters = FilterManager.GetFiltersFor(context).OfType<IContextAware>()
+                .ToArray();
+            contextAwareFilters.Apply(x => x.MakeAwareOf(context));
+
+            context.Message.Detaching += (o, e) => { contextAwareFilters.Apply(x => x.Dispose()); };
+        }
+
+        #endregion
 
         //private static IEnumerable<IResult> ExecuteActionWithParameters(object[] values) {
         //    var actionExecution = new ExecuteActionResult(values);
@@ -101,9 +109,6 @@
         //        outcomeEnumerator.Dispose();
         //    }
 
-			
         //}
-
-		
-	}
+    }
 }

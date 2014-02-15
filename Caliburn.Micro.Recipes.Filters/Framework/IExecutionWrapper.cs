@@ -2,6 +2,10 @@
 {
     public interface IExecutionWrapper : IFilter
     {
+        #region Public Methods and Operators
+
         IResult Wrap(IResult inner);
+
+        #endregion
     }
 }

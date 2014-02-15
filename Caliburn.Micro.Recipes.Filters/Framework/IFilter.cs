@@ -1,7 +1,11 @@
 ﻿namespace Caliburn.Micro.Recipes.Filters.Framework
 {
     public interface IFilter
-	{
-		int Priority { get; }
-	}
+    {
+        #region Public Properties
+
+        int Priority { get; }
+
+        #endregion
+    }
 }

@@ -36,7 +36,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Framework\ExecutionWrapperBase.cs" />
-    <Compile Include="Framework\ICanBeBusy.cs" />
     <Compile Include="Framework\IExecutionWrapper.cs" />
     <Compile Include="Framework\IFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
