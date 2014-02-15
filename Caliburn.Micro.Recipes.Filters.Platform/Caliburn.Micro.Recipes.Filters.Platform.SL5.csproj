@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Caliburn.Micro.Recipes.Filters.Platform.SL5</RootNamespace>
-    <AssemblyName>Caliburn.Micro.Recipes.Filters.Platform.SL5</AssemblyName>
+    <AssemblyName>Caliburn.Micro.Recipes.Filters.SL5</AssemblyName>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
