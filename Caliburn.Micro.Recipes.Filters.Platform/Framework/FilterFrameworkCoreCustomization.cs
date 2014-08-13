@@ -53,6 +53,7 @@
             var enumerator = returnValue as IEnumerator<IResult>;
             if (enumerator != null)
             {
+				result = Coroutine.CreateParentEnumerator(enumerator);
                 var wrappers = FilterManager.GetFiltersFor(context).OfType<IExecutionWrapper>();
                 var pipeline = result.WrapWith(wrappers);
                 //if pipeline has error, action execution should throw! 
