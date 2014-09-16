@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30129.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3F40E512-30D9-45E4-8965-F05FC373374D}"
 	ProjectSection(SolutionItems) = preProject
@@ -10,11 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3F40E5
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.Recipes.Filters.Platform.NET45", "Caliburn.Micro.Recipes.Filters.Platform\Caliburn.Micro.Recipes.Filters.Platform.NET45.csproj", "{42EF5462-F756-44B5-A73B-4F78CE515B70}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.Recipes.Filters", "Caliburn.Micro.Recipes.Filters\Caliburn.Micro.Recipes.Filters.csproj", "{49970E8E-6B2D-40BA-84B4-BB2414550277}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.Recipes.Filters.Platform.SL5", "Caliburn.Micro.Recipes.Filters.Platform\Caliburn.Micro.Recipes.Filters.Platform.SL5.csproj", "{BE4EAF0C-2DA6-43B8-B558-178BCCAFDABB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.Recipes.Filters", "Caliburn.Micro.Recipes.Filters\Caliburn.Micro.Recipes.Filters.csproj", "{42EF5462-F756-44B5-A73B-4F78CE515B70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,14 +22,6 @@ Global
 		{42EF5462-F756-44B5-A73B-4F78CE515B70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42EF5462-F756-44B5-A73B-4F78CE515B70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42EF5462-F756-44B5-A73B-4F78CE515B70}.Release|Any CPU.Build.0 = Release|Any CPU
-		{49970E8E-6B2D-40BA-84B4-BB2414550277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{49970E8E-6B2D-40BA-84B4-BB2414550277}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{49970E8E-6B2D-40BA-84B4-BB2414550277}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{49970E8E-6B2D-40BA-84B4-BB2414550277}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE4EAF0C-2DA6-43B8-B558-178BCCAFDABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE4EAF0C-2DA6-43B8-B558-178BCCAFDABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE4EAF0C-2DA6-43B8-B558-178BCCAFDABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE4EAF0C-2DA6-43B8-B558-178BCCAFDABB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

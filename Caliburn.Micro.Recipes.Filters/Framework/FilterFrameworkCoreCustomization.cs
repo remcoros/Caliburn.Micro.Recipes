@@ -14,13 +14,13 @@
             ActionMessage.PrepareContext = context =>
                 {
                     oldPrepareContext(context);
-                    FilterFrameworkCoreCustomization.PrepareContext(context);
+                    PrepareContext(context);
                 };
 
             ActionMessage.InvokeAction = context =>
                 {
                     var values = MessageBinder.DetermineParameters(context, context.Method.GetParameters());
-                    FilterFrameworkCoreCustomization.InvokeAction(context, values);
+                    InvokeAction(context, values);
                 };
         }
 
@@ -53,24 +53,21 @@
             var enumerator = returnValue as IEnumerator<IResult>;
             if (enumerator != null)
             {
-				result = Coroutine.CreateParentEnumerator(enumerator);
+                result = Coroutine.CreateParentEnumerator(enumerator);
                 var wrappers = FilterManager.GetFiltersFor(context).OfType<IExecutionWrapper>();
                 var pipeline = result.WrapWith(wrappers);
                 //if pipeline has error, action execution should throw! 
-                pipeline.Completed += (o, e) =>
+                pipeline.Completed += (o, e) => Execute.OnUIThread(
+                    () =>
                     {
-                        Execute.OnUIThread(
-                            () =>
-                            {
-                                if (e.Error != null)
-                                {
-                                    throw new Exception(
-                                        string.Format("An error occurred while executing {0}", context.Message),
-                                        e.Error
-                                        );
-                                }
-                            });
-                    };
+                        if (e.Error != null)
+                        {
+                            throw new Exception(
+                                string.Format("An error occurred while executing {0}", context.Message),
+                                e.Error
+                                );
+                        }
+                    });
                 pipeline.Execute(
                     new CoroutineExecutionContext
                         {
@@ -83,33 +80,12 @@
 
         internal static void PrepareContext(ActionExecutionContext context)
         {
-            var contextAwareFilters = FilterManager.GetFiltersFor(context).OfType<IContextAware>()
-                .ToArray();
+            var contextAwareFilters = FilterManager.GetFiltersFor(context).OfType<IContextAware>().ToArray();
             contextAwareFilters.Apply(x => x.MakeAwareOf(context));
 
-            context.Message.Detaching += (o, e) => { contextAwareFilters.Apply(x => x.Dispose()); };
+            context.Message.Detaching += (o, e) => contextAwareFilters.Apply(x => x.Dispose());
         }
 
         #endregion
-
-        //private static IEnumerable<IResult> ExecuteActionWithParameters(object[] values) {
-        //    var actionExecution = new ExecuteActionResult(values);
-        //    yield return actionExecution;
-
-        //    var outcomeEnumerator = actionExecution.GetOutcomeEnumerator();
-        //    if (outcomeEnumerator == null) yield break;
-
-        //    try
-        //    {
-        //        while (outcomeEnumerator.MoveNext())
-        //        {
-        //            yield return outcomeEnumerator.Current;
-        //        }
-        //    }
-        //    finally {
-        //        outcomeEnumerator.Dispose();
-        //    }
-
-        //}
     }
 }
